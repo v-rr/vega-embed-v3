@@ -1,7 +1,7 @@
 {
-  "name": "@nteract/vega-embed-v2",
+  "name": "@nteract/vega-embed-v3",
   "version": "1.1.0",
-  "description": "Bundled embedded Vega 2 and Vega-Lite 1 without node canvas",
+  "description": "Bundled embedded Vega 3 and Vega-Lite 2 without node canvas",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "scripts": {
