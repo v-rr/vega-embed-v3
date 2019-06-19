@@ -1,3 +1,3 @@
-# vega-embed-v2
+# vega-embed-v3
 
-Bundled embedded Vega 2 and Vega-Lite 1
+Bundled embedded Vega 3 and Vega-Lite 2
