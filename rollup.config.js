@@ -13,6 +13,7 @@ export default [
       "datalib/src/import/load",
       "d3",
       "d3-cloud",
+      "d3-request",
       "json-stable-stringify"
     ],
     output: [
