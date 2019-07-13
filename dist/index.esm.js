@@ -2388,7 +2388,7 @@ function integer(min$$1, max$$1) {
   return dist.min(min$$1).max(max$$1);
 }
 
-function gaussian(mean$$1, stdev) {
+function randomNormal(mean$$1, stdev) {
   var mu,
       sigma,
       next = NaN,
@@ -2479,7 +2479,7 @@ function gaussian(mean$$1, stdev) {
 }
 
 function randomKDE(support, bandwidth) {
-  var kernel = gaussian(),
+  var kernel = randomNormal(),
       dist = {},
       n = 0;
   dist.data = function(_$$1) {
@@ -3625,7 +3625,7 @@ function cross(input, a, b, filter) {
 var Distributions = {
   kde:     randomKDE,
   mixture: randomMixture,
-  normal:  gaussian,
+  normal:  randomNormal,
   uniform: randomUniform
 };
 var DISTRIBUTIONS = 'distributions',
@@ -7024,7 +7024,7 @@ var text = {
 
 var trail$1 = markMultiItemPath('trail', trail, pickTrail);
 
-var marks = {
+var Marks = {
   arc:     arc$2,
   area:    area$2,
   group:   group,
@@ -7040,7 +7040,7 @@ var marks = {
 };
 
 function boundItem(item, func, opt) {
-  var type = marks[item.mark.marktype],
+  var type = Marks[item.mark.marktype],
       bound = func || type.bound;
   if (type.nested) item = item.mark;
   return bound(item.bounds || (item.bounds = new Bounds()), item, opt);
@@ -7048,7 +7048,7 @@ function boundItem(item, func, opt) {
 
 var DUMMY = {mark: null};
 function boundMark(mark, bounds, opt) {
-  var type  = marks[mark.marktype],
+  var type  = Marks[mark.marktype],
       bound = type.bound,
       items = mark.items,
       hasItems = items && items.length,
@@ -7198,7 +7198,7 @@ function point(event$$1, el) {
 function resolveItem(item, event$$1, el, origin) {
   var mark = item && item.mark,
       mdef, p;
-  if (mark && (mdef = marks[mark.marktype]).tip) {
+  if (mark && (mdef = Marks[mark.marktype]).tip) {
     p = point(event$$1, el);
     p[0] -= origin[0];
     p[1] -= origin[1];
@@ -7526,7 +7526,7 @@ prototype$H.pickEvent = function(evt) {
 };
 prototype$H.pick = function(scene, x, y, gx, gy) {
   var g = this.context(),
-      mark = marks[scene.marktype];
+      mark = Marks[scene.marktype];
   return mark.pick.call(this, g, scene, x, y, gx, gy);
 };
 
@@ -7636,7 +7636,7 @@ prototype$I._render = function(scene) {
   return this;
 };
 prototype$I.draw = function(ctx, scene, bounds) {
-  var mark = marks[scene.marktype];
+  var mark = Marks[scene.marktype];
   if (scene.clip) clip$1(ctx, scene);
   mark.draw.call(this, ctx, scene, bounds);
   if (scene.clip) ctx.restore();
@@ -7911,7 +7911,7 @@ prototype$K._dirtyCheck = function() {
     mark = item.mark;
     if (mark.marktype !== type) {
       type = mark.marktype;
-      mdef = marks[type];
+      mdef = Marks[type];
     }
     if (mark.zdirty && mark.dirty !== id$$1) {
       this._dirtyAll = false;
@@ -7954,7 +7954,7 @@ prototype$K.draw = function(el, scene, prev) {
   if (!this.isDirty(scene)) return scene._svg;
   var renderer = this,
       svg = this._svg,
-      mdef = marks[scene.marktype],
+      mdef = Marks[scene.marktype],
       events = scene.interactive === false ? 'none' : null,
       isGroup = mdef.tag === 'g',
       sibling = null,
@@ -8243,7 +8243,7 @@ prototype$L.href = function(item) {
 };
 prototype$L.mark = function(scene) {
   var renderer = this,
-      mdef = marks[scene.marktype],
+      mdef = Marks[scene.marktype],
       tag  = mdef.tag,
       defs = this._defs,
       str = '',
@@ -8403,7 +8403,7 @@ prototype$M.transform = function(_$$1, pulse) {
   var view = pulse.dataflow,
       mark = _$$1.mark,
       type = mark.marktype,
-      entry = marks[type],
+      entry = Marks[type],
       bound = entry.bound,
       markBounds = mark.bounds, rebound;
   if (entry.nested) {
@@ -18796,7 +18796,7 @@ var vegaImport = /*#__PURE__*/Object.freeze({
   randomInteger: integer,
   randomKDE: randomKDE,
   randomMixture: randomMixture,
-  randomNormal: gaussian,
+  randomNormal: randomNormal,
   randomUniform: randomUniform,
   regressionLinear: linear,
   regressionLog: log$2,
@@ -18890,7 +18890,7 @@ var vegaImport = /*#__PURE__*/Object.freeze({
   SVGStringRenderer: SVGStringRenderer,
   RenderType: RenderType,
   renderModule: renderModule,
-  Marks: marks,
+  Marks: Marks,
   boundClip: boundClip,
   boundContext: context,
   boundStroke: boundStroke,

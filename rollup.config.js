@@ -14,6 +14,7 @@ export default [
       "d3",
       "d3-cloud",
       "d3-request",
+      "d3-scale-chromatic",
       "json-stable-stringify"
     ],
     output: [
