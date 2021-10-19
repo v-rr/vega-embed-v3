@@ -16,6 +16,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nteract/vega-embed-v3.git"
+  },
   "dependencies": {
     "d3": "3.5.17",
     "d3-array": "^2.3.1",
